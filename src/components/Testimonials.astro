@@ -1,0 +1,25 @@
+---
+import type { SiteConfig } from "../types/site";
+
+interface Props {
+  site: SiteConfig;
+}
+
+const { site } = Astro.props;
+const testimonials = site.sections.testimonials;
+---
+
+<section class="section muted-band" id="yorumlar">
+  <div class="section-heading">
+    <p class="eyebrow">{testimonials.eyebrow}</p>
+    <h2>{testimonials.title}</h2>
+  </div>
+  <div class="testimonial-grid">
+    {testimonials.items.map((item) => (
+      <blockquote>
+        <p>"{item.quote}"</p>
+        <cite>{item.name}</cite>
+      </blockquote>
+    ))}
+  </div>
+</section>

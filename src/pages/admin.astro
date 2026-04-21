@@ -1,0 +1,657 @@
+---
+import siteData from "../data/site.json";
+import type { SiteConfig } from "../types/site";
+
+const site = siteData as SiteConfig;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Site Ayarları</title>
+  </head>
+  <body>
+    <main class="admin-shell">
+      <aside class="editor-panel">
+        <div class="panel-header">
+          <p>Hazırlık Paneli</p>
+          <h1>Site Ayarları</h1>
+        </div>
+
+        <section class="control-group">
+          <h2>Şablon</h2>
+          <div class="preset-grid">
+            <button type="button" data-preset="barber">Berber</button>
+            <button type="button" data-preset="law">Avukat</button>
+            <button type="button" data-preset="course">Müzik Kursu</button>
+            <button type="button" data-preset="beauty">Güzellik</button>
+            <button type="button" data-preset="food">Yemek</button>
+            <button type="button" data-preset="community">Topluluk</button>
+          </div>
+        </section>
+
+        <section class="control-group">
+          <h2>İşletme</h2>
+          <label>Ad <input id="name" /></label>
+          <label>Sektör <input id="sector" /></label>
+          <label>Logo Yazısı <input id="logoText" maxlength="4" /></label>
+          <label>Kısa Slogan <input id="tagline" /></label>
+          <label>Açıklama <textarea id="description" rows="4"></textarea></label>
+        </section>
+
+        <section class="control-group">
+          <h2>İletişim</h2>
+          <label>Telefon <input id="phone" /></label>
+          <label>WhatsApp <input id="whatsapp" /></label>
+          <label>E-posta <input id="email" /></label>
+          <label>Adres <textarea id="address" rows="2"></textarea></label>
+          <label>Çalışma Saatleri <input id="hours" /></label>
+        </section>
+
+        <section class="control-group">
+          <h2>Renkler</h2>
+          <div class="color-grid">
+            <label>Birincil <input id="primary" type="color" /></label>
+            <label>İkincil <input id="secondary" type="color" /></label>
+            <label>Vurgu <input id="accent" type="color" /></label>
+            <label>Arka Plan <input id="background" type="color" /></label>
+          </div>
+        </section>
+
+        <section class="control-group">
+          <h2>Bölümler</h2>
+          <label class="switch"><input id="aboutEnabled" type="checkbox" /> Hakkımızda</label>
+          <label class="switch"><input id="servicesEnabled" type="checkbox" /> Hizmetler</label>
+          <label class="switch"><input id="galleryEnabled" type="checkbox" /> Galeri</label>
+          <label class="switch"><input id="testimonialsEnabled" type="checkbox" /> Yorumlar</label>
+          <label class="switch"><input id="faqEnabled" type="checkbox" /> Sık Sorulanlar</label>
+        </section>
+
+        <section class="control-group">
+          <h2>Hizmetler</h2>
+          <label>Her satır: başlık | açıklama | süre/fiyat <textarea id="services" rows="7"></textarea></label>
+        </section>
+
+        <section class="control-group">
+          <h2>Fotoğraflar</h2>
+          <label>Hero görseli <input id="heroImage" /></label>
+          <label>Galeri linkleri <textarea id="galleryImages" rows="5"></textarea></label>
+        </section>
+
+        <section class="control-group actions">
+          <button type="button" id="copyJson">JSON kopyala</button>
+          <button type="button" id="downloadJson">JSON indir</button>
+          <button type="button" id="reset">Sıfırla</button>
+        </section>
+      </aside>
+
+      <section class="preview-panel" aria-label="Önizleme">
+        <div class="preview-toolbar">
+          <span id="status">Hazır</span>
+          <a href="/" target="_blank">Canlı sayfayı aç</a>
+        </div>
+        <div id="preview" class="preview"></div>
+      </section>
+    </main>
+
+    <script is:inline define:vars={{ initialSite: site }}>
+      const state = structuredClone(initialSite);
+      const original = structuredClone(initialSite);
+      const $ = (id) => document.getElementById(id);
+      const status = $("status");
+
+      const presets = {
+        barber: {
+          sector: "Berber",
+          name: "Mavi Makas Berber",
+          logoText: "MM",
+          tagline: "Mahallende temiz, dakik ve özenli berber hizmeti.",
+          primary: "#116466",
+          secondary: "#d9b44a",
+          accent: "#c44536",
+          image: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1800&q=80",
+          services: [
+            ["Saç Kesimi", "Yüz şekline uygun makas ve makine kesimi.", "30 dk"],
+            ["Sakal Tıraşı", "Klasik ustura, çizgi düzeltme ve sıcak havlu.", "20 dk"],
+            ["Saç ve Sakal", "Tek randevuda eksiksiz bakım.", "45 dk"]
+          ]
+        },
+        law: {
+          sector: "Hukuk Bürosu",
+          name: "Kaya Hukuk ve Danışmanlık",
+          logoText: "KH",
+          tagline: "Anlaşılır, düzenli ve güven veren hukuki danışmanlık.",
+          primary: "#243b53",
+          secondary: "#c9a227",
+          accent: "#7f1d1d",
+          image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1800&q=80",
+          services: [
+            ["Danışmanlık", "İlk görüşmede sürecin net şekilde planlanması.", "Randevulu"],
+            ["Sözleşme İnceleme", "Risklerin sade bir dille raporlanması.", "2-5 gün"],
+            ["Dava Takibi", "Dosya durumunun düzenli bilgilendirmeyle yürütülmesi.", "Süreç bazlı"]
+          ]
+        },
+        course: {
+          sector: "Müzik Kursu",
+          name: "Nota Atölyesi",
+          logoText: "NA",
+          tagline: "Çocuklar ve yetişkinler için keyifli müzik dersleri.",
+          primary: "#355c7d",
+          secondary: "#f8b195",
+          accent: "#6c5b7b",
+          image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1800&q=80",
+          services: [
+            ["Piyano", "Temel teknik, nota okuma ve repertuvar çalışması.", "Haftalık"],
+            ["Gitar", "Akort, ritim ve sevilen parçalarla pratik.", "Haftalık"],
+            ["Çocuk Müzik", "Ritim ve kulak gelişimi odaklı dersler.", "Grup"]
+          ]
+        },
+        beauty: {
+          sector: "Güzellik Salonu",
+          name: "Liva Güzellik",
+          logoText: "LG",
+          tagline: "Bakımlı, sade ve iyi hissettiren güzellik uygulamaları.",
+          primary: "#7c3f58",
+          secondary: "#f2c14e",
+          accent: "#2a9d8f",
+          image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=80",
+          services: [
+            ["Cilt Bakımı", "Cilt tipine göre temel temizlik ve nemlendirme.", "60 dk"],
+            ["Manikür", "Hijyenik bakım ve kalıcı oje seçenekleri.", "45 dk"],
+            ["Kaş Tasarımı", "Yüze uygun ölçülendirme ve şekillendirme.", "30 dk"]
+          ]
+        },
+        food: {
+          sector: "Ev Yemekleri",
+          name: "Sıcak Tabak",
+          logoText: "ST",
+          tagline: "Günlük çıkan taze ev yemekleri ve pratik öğle menüleri.",
+          primary: "#386641",
+          secondary: "#ffb703",
+          accent: "#bc4749",
+          image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1800&q=80",
+          services: [
+            ["Günlük Menü", "Çorba, ana yemek ve pilav seçenekleri.", "Her gün"],
+            ["Paket Servis", "Yakın çevreye hızlı teslim.", "Öğle"],
+            ["Toplu Sipariş", "Ofis ve etkinlikler için ön sipariş.", "Planlı"]
+          ]
+        },
+        community: {
+          sector: "Topluluk",
+          name: "Ankara Hayvanseverler Topluluğu",
+          logoText: "AH",
+          tagline: "Sahiplendirme, destek ve gönüllülük için yerel buluşma noktası.",
+          primary: "#006d77",
+          secondary: "#e9c46a",
+          accent: "#e76f51",
+          image: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1800&q=80",
+          services: [
+            ["Sahiplendirme", "Güvenli yuva arayan canlıların duyuruları.", "Gönüllü"],
+            ["Mama Desteği", "Mahalle besleme noktaları için destek çağrıları.", "Düzenli"],
+            ["Etkinlikler", "Buluşma, eğitim ve dayanışma programları.", "Aylık"]
+          ]
+        }
+      };
+
+      const fields = {
+        name: ["business", "name"],
+        sector: ["business", "sector"],
+        logoText: ["business", "logoText"],
+        tagline: ["business", "tagline"],
+        description: ["business", "description"],
+        phone: ["business", "phone"],
+        whatsapp: ["business", "whatsapp"],
+        email: ["business", "email"],
+        address: ["business", "address"],
+        hours: ["business", "hours"],
+        primary: ["theme", "primary"],
+        secondary: ["theme", "secondary"],
+        accent: ["theme", "accent"],
+        background: ["theme", "background"],
+        heroImage: ["sections", "hero", "image"]
+      };
+
+      function readPath(path) {
+        return path.reduce((value, key) => value[key], state);
+      }
+
+      function writePath(path, value) {
+        const last = path.at(-1);
+        const parent = path.slice(0, -1).reduce((item, key) => item[key], state);
+        parent[last] = value;
+      }
+
+      function fillForm() {
+        Object.entries(fields).forEach(([id, path]) => {
+          $(id).value = readPath(path);
+        });
+        $("aboutEnabled").checked = state.sections.about.enabled;
+        $("servicesEnabled").checked = state.sections.services.enabled;
+        $("galleryEnabled").checked = state.sections.gallery.enabled;
+        $("testimonialsEnabled").checked = state.sections.testimonials.enabled;
+        $("faqEnabled").checked = state.sections.faq.enabled;
+        $("services").value = state.sections.services.items
+          .map((item) => [item.title, item.description, item.price || ""].join(" | "))
+          .join("\n");
+        $("galleryImages").value = state.sections.gallery.images.map((image) => image.src).join("\n");
+      }
+
+      function readForm() {
+        Object.entries(fields).forEach(([id, path]) => writePath(path, $(id).value));
+        state.sections.about.enabled = $("aboutEnabled").checked;
+        state.sections.services.enabled = $("servicesEnabled").checked;
+        state.sections.gallery.enabled = $("galleryEnabled").checked;
+        state.sections.testimonials.enabled = $("testimonialsEnabled").checked;
+        state.sections.faq.enabled = $("faqEnabled").checked;
+        state.sections.services.items = $("services")
+          .value.split("\n")
+          .map((line) => line.split("|").map((part) => part.trim()))
+          .filter(([title]) => title)
+          .map(([title, description = "", price = ""]) => ({ title, description, price }));
+        state.sections.gallery.images = $("galleryImages")
+          .value.split("\n")
+          .map((src) => src.trim())
+          .filter(Boolean)
+          .map((src, index) => ({ src, alt: `${state.business.name} galeri ${index + 1}` }));
+        state.seo.title = `${state.business.name} | ${state.business.sector}`;
+        state.seo.description = state.business.description;
+      }
+
+      function renderPreview() {
+        document.documentElement.style.setProperty("--admin-primary", state.theme.primary);
+        document.documentElement.style.setProperty("--admin-secondary", state.theme.secondary);
+        document.documentElement.style.setProperty("--admin-accent", state.theme.accent);
+        document.documentElement.style.setProperty("--admin-bg", state.theme.background);
+        const serviceCards = state.sections.services.items
+          .map(
+            (item) => `
+              <article>
+                <strong>${item.title}</strong>
+                <p>${item.description}</p>
+                <span>${item.price || ""}</span>
+              </article>
+            `
+          )
+          .join("");
+        const gallery = state.sections.gallery.images
+          .slice(0, 3)
+          .map((image) => `<img src="${image.src}" alt="${image.alt}">`)
+          .join("");
+        $("preview").innerHTML = `
+          <header>
+            <div><span>${state.business.logoText}</span><strong>${state.business.name}</strong></div>
+            <a>Randevu</a>
+          </header>
+          <section class="mock-hero" style="background-image: linear-gradient(90deg, rgba(18, 24, 29, .84), rgba(18, 24, 29, .28)), url('${state.sections.hero.image}')">
+            <p>${state.sections.hero.eyebrow}</p>
+            <h2>${state.business.name}</h2>
+            <h3>${state.business.tagline}</h3>
+            <small>${state.business.description}</small>
+          </section>
+          ${state.sections.services.enabled ? `<section class="mock-services">${serviceCards}</section>` : ""}
+          ${state.sections.gallery.enabled ? `<section class="mock-gallery">${gallery}</section>` : ""}
+          <footer>
+            <strong>${state.business.phone}</strong>
+            <span>${state.business.address}</span>
+          </footer>
+        `;
+      }
+
+      function markSaved(message) {
+        status.textContent = message;
+        window.setTimeout(() => {
+          status.textContent = "Hazır";
+        }, 1800);
+      }
+
+      function sync() {
+        readForm();
+        renderPreview();
+        localStorage.setItem("esnaf-site-draft", JSON.stringify(state));
+      }
+
+      function applyPreset(presetKey) {
+        const preset = presets[presetKey];
+        state.business.name = preset.name;
+        state.business.sector = preset.sector;
+        state.business.logoText = preset.logoText;
+        state.business.tagline = preset.tagline;
+        state.theme.primary = preset.primary;
+        state.theme.secondary = preset.secondary;
+        state.theme.accent = preset.accent;
+        state.sections.hero.image = preset.image;
+        state.sections.services.items = preset.services.map(([title, description, price]) => ({
+          title,
+          description,
+          price
+        }));
+        fillForm();
+        sync();
+        markSaved("Şablon uygulandı");
+      }
+
+      function downloadJson() {
+        sync();
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "site.json";
+        link.click();
+        URL.revokeObjectURL(link.href);
+        markSaved("JSON indirildi");
+      }
+
+      async function copyJson() {
+        sync();
+        await navigator.clipboard.writeText(JSON.stringify(state, null, 2));
+        markSaved("JSON kopyalandı");
+      }
+
+      function resetDraft() {
+        Object.keys(state).forEach((key) => delete state[key]);
+        Object.assign(state, structuredClone(original));
+        localStorage.removeItem("esnaf-site-draft");
+        fillForm();
+        renderPreview();
+        markSaved("Sıfırlandı");
+      }
+
+      const draft = localStorage.getItem("esnaf-site-draft");
+      if (draft) {
+        Object.assign(state, JSON.parse(draft));
+      }
+
+      fillForm();
+      renderPreview();
+      document.querySelectorAll("input, textarea").forEach((input) => input.addEventListener("input", sync));
+      document.querySelectorAll("[data-preset]").forEach((button) => {
+        button.addEventListener("click", () => applyPreset(button.dataset.preset));
+      });
+      $("downloadJson").addEventListener("click", downloadJson);
+      $("copyJson").addEventListener("click", copyJson);
+      $("reset").addEventListener("click", resetDraft);
+    </script>
+
+    <style>
+      :root {
+        --admin-primary: #116466;
+        --admin-secondary: #d9b44a;
+        --admin-accent: #c44536;
+        --admin-bg: #f6f7f3;
+        color: #1f2a2e;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #eef1ed;
+      }
+
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+
+      .admin-shell {
+        display: grid;
+        grid-template-columns: minmax(320px, 420px) 1fr;
+        min-height: 100vh;
+      }
+
+      .editor-panel {
+        height: 100vh;
+        overflow: auto;
+        padding: 24px;
+        background: #ffffff;
+        border-right: 1px solid #d8ded8;
+      }
+
+      .panel-header p,
+      .control-group h2 {
+        margin: 0 0 8px;
+        color: #63706a;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .panel-header h1 {
+        margin: 0 0 24px;
+        font-size: 2rem;
+      }
+
+      .control-group {
+        padding: 18px 0;
+        border-top: 1px solid #e4e8e3;
+      }
+
+      .control-group label {
+        display: grid;
+        gap: 7px;
+        margin: 12px 0;
+        color: #4e5c58;
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        border: 1px solid #cfd8d1;
+        border-radius: 8px;
+        padding: 10px 12px;
+        color: #1f2a2e;
+        background: #fbfcfb;
+      }
+
+      textarea {
+        resize: vertical;
+      }
+
+      .preset-grid,
+      .color-grid,
+      .actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      button,
+      .preview-toolbar a {
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 12px;
+        color: #102126;
+        background: #dfe9e2;
+        font-weight: 800;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      button:hover,
+      .preview-toolbar a:hover {
+        background: #cfddcf;
+      }
+
+      .switch {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+      }
+
+      .switch input {
+        width: auto;
+      }
+
+      .preview-panel {
+        min-width: 0;
+        padding: 24px;
+        background: var(--admin-bg);
+      }
+
+      .preview-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .preview {
+        overflow: hidden;
+        min-height: calc(100vh - 84px);
+        border: 1px solid #d3d9d2;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 18px 50px rgba(21, 31, 28, 0.12);
+      }
+
+      .preview header,
+      .preview footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 16px 22px;
+        background: #fff;
+      }
+
+      .preview header div {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .preview header span {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border-radius: 8px;
+        color: #fff;
+        background: var(--admin-primary);
+        font-weight: 900;
+      }
+
+      .preview header a {
+        border-radius: 8px;
+        padding: 10px 14px;
+        color: #17201f;
+        background: var(--admin-secondary);
+        font-weight: 900;
+      }
+
+      .mock-hero {
+        min-height: 430px;
+        padding: 80px 48px;
+        color: #fff;
+        background-position: center;
+        background-size: cover;
+      }
+
+      .mock-hero p {
+        margin: 0 0 10px;
+        color: var(--admin-secondary);
+        font-size: 0.8rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .mock-hero h2 {
+        max-width: 780px;
+        margin: 0;
+        font-size: clamp(2.5rem, 6vw, 5.2rem);
+        line-height: 0.95;
+      }
+
+      .mock-hero h3 {
+        max-width: 680px;
+        margin: 22px 0 12px;
+        font-size: 1.45rem;
+      }
+
+      .mock-hero small {
+        display: block;
+        max-width: 660px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+
+      .mock-services {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        padding: 28px;
+        background: var(--admin-bg);
+      }
+
+      .mock-services article {
+        min-height: 170px;
+        border: 1px solid #e1e5df;
+        border-radius: 8px;
+        padding: 18px;
+        background: #fff;
+      }
+
+      .mock-services strong {
+        color: var(--admin-primary);
+        font-size: 1.12rem;
+      }
+
+      .mock-services p {
+        color: #59645f;
+        line-height: 1.6;
+      }
+
+      .mock-services span {
+        color: var(--admin-accent);
+        font-weight: 900;
+      }
+
+      .mock-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 28px;
+      }
+
+      .mock-gallery img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .preview footer {
+        color: #56635d;
+      }
+
+      @media (max-width: 980px) {
+        .admin-shell {
+          grid-template-columns: 1fr;
+        }
+
+        .editor-panel {
+          height: auto;
+          border-right: 0;
+          border-bottom: 1px solid #d8ded8;
+        }
+
+        .mock-services,
+        .mock-gallery {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
+</html>

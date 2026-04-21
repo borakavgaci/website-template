@@ -1,0 +1,24 @@
+---
+import type { SiteConfig } from "../types/site";
+
+interface Props {
+  site: SiteConfig;
+}
+
+const { site } = Astro.props;
+const navItems = site.navigation.filter((item) => item.enabled);
+---
+
+<header class="site-header">
+  <a class="brand" href="#anasayfa" aria-label={`${site.business.name} ana sayfa`}>
+    <span class="brand-mark">{site.business.logoText}</span>
+    <span>
+      <strong>{site.business.name}</strong>
+      <small>{site.business.sector}</small>
+    </span>
+  </a>
+  <nav class="site-nav" aria-label="Ana menü">
+    {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+  <a class="header-action" href={`https://wa.me/${site.business.whatsapp}`}>Randevu</a>
+</header>

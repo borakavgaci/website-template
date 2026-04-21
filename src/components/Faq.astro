@@ -1,0 +1,25 @@
+---
+import type { SiteConfig } from "../types/site";
+
+interface Props {
+  site: SiteConfig;
+}
+
+const { site } = Astro.props;
+const faq = site.sections.faq;
+---
+
+<section class="section faq-section" id="sss">
+  <div class="section-heading">
+    <p class="eyebrow">{faq.eyebrow}</p>
+    <h2>{faq.title}</h2>
+  </div>
+  <div class="faq-list">
+    {faq.items.map((item) => (
+      <details>
+        <summary>{item.question}</summary>
+        <p>{item.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>

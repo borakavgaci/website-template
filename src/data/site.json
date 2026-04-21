@@ -1,0 +1,178 @@
+{
+  "business": {
+    "name": "Mavi Makas Berber",
+    "sector": "Berber",
+    "logoText": "MM",
+    "tagline": "Mahallende temiz, dakik ve özenli berber hizmeti.",
+    "description": "Randevunu hızlıca al, saç ve sakal bakımını beklemeden tamamla. Klasik berber rahatlığını modern bir dokunuşla sunuyoruz.",
+    "phone": "+90 312 000 00 00",
+    "whatsapp": "903120000000",
+    "email": "merhaba@mavimakas.com",
+    "address": "Itfaiyeciler Meydanı, Ankara",
+    "mapsUrl": "https://maps.google.com/?q=Itfaiyeciler%20Meydani%20Ankara",
+    "instagram": "https://instagram.com/",
+    "hours": "Pazartesi-Cumartesi 09:00-20:00"
+  },
+  "seo": {
+    "title": "Mavi Makas Berber | Ankara",
+    "description": "Ankara'da saç kesimi, sakal tıraşı ve erkek bakım hizmetleri için Mavi Makas Berber."
+  },
+  "theme": {
+    "primary": "#116466",
+    "secondary": "#d9b44a",
+    "accent": "#c44536",
+    "background": "#f6f7f3",
+    "surface": "#ffffff",
+    "text": "#1f2a2e",
+    "muted": "#667277"
+  },
+  "navigation": [
+    {
+      "label": "Ana Sayfa",
+      "href": "#anasayfa",
+      "enabled": true
+    },
+    {
+      "label": "Hakkımızda",
+      "href": "#hakkimizda",
+      "enabled": true
+    },
+    {
+      "label": "Hizmetler",
+      "href": "#hizmetler",
+      "enabled": true
+    },
+    {
+      "label": "Galeri",
+      "href": "#galeri",
+      "enabled": true
+    },
+    {
+      "label": "Yorumlar",
+      "href": "#yorumlar",
+      "enabled": true
+    },
+    {
+      "label": "İletişim",
+      "href": "#iletisim",
+      "enabled": true
+    }
+  ],
+  "sections": {
+    "hero": {
+      "enabled": true,
+      "eyebrow": "Ankara'da mahalle berberi",
+      "image": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1800&q=80",
+      "primaryCta": "WhatsApp'tan randevu al",
+      "secondaryCta": "Yol tarifi al"
+    },
+    "trust": {
+      "enabled": true,
+      "items": [
+        {
+          "value": "12+",
+          "label": "yıllık deneyim"
+        },
+        {
+          "value": "09:00",
+          "label": "her sabah açık"
+        },
+        {
+          "value": "4.8",
+          "label": "müşteri memnuniyeti"
+        }
+      ]
+    },
+    "about": {
+      "enabled": true,
+      "eyebrow": "Hakkımızda",
+      "title": "Kısa süren, iyi görünen, rahat hissettiren bakım.",
+      "body": "Mavi Makas Berber; saç kesimi, sakal tıraşı ve temel bakım hizmetlerinde net randevu saatleriyle çalışan küçük bir mahalle işletmesidir. Amacımız her müşterinin kendine yakışan görünümü yorulmadan bulması.",
+      "highlights": [
+        "Randevulu çalışma",
+        "Temiz ekipman",
+        "Çocuk kesimi",
+        "Merkezi konum"
+      ],
+      "image": "https://images.unsplash.com/photo-1517832606299-7ae9b720a186?auto=format&fit=crop&w=1400&q=80"
+    },
+    "services": {
+      "enabled": true,
+      "eyebrow": "Hizmetler",
+      "title": "En çok tercih edilen hizmetler",
+      "intro": "Fiyatlar ve süreler işletmenin çalışma düzenine göre kolayca değiştirilebilir.",
+      "items": [
+        {
+          "title": "Saç Kesimi",
+          "description": "Yüz şekline ve kullanım alışkanlığına uygun makas ve makine kesimi.",
+          "price": "30 dk"
+        },
+        {
+          "title": "Sakal Tıraşı",
+          "description": "Klasik ustura, çizgi düzeltme ve sıcak havlu bakımı.",
+          "price": "20 dk"
+        },
+        {
+          "title": "Saç ve Sakal",
+          "description": "Tek randevuda eksiksiz bakım, kesim ve son şekillendirme.",
+          "price": "45 dk"
+        }
+      ]
+    },
+    "gallery": {
+      "enabled": true,
+      "eyebrow": "Galeri",
+      "title": "Mekandan kareler",
+      "images": [
+        {
+          "src": "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=80",
+          "alt": "Berber tezgahı"
+        },
+        {
+          "src": "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=80",
+          "alt": "Berber koltuğu"
+        },
+        {
+          "src": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=900&q=80",
+          "alt": "Saç kesimi"
+        }
+      ]
+    },
+    "testimonials": {
+      "enabled": true,
+      "eyebrow": "Yorumlar",
+      "title": "Müşteriler ne diyor?",
+      "items": [
+        {
+          "quote": "Randevu saatine sadık kalmaları çok iyi. Kesim de temiz ve özenli.",
+          "name": "Emre K."
+        },
+        {
+          "quote": "Mahallede güvenle gittiğim yer. Çocuk kesiminde de sabırlılar.",
+          "name": "Burak A."
+        }
+      ]
+    },
+    "faq": {
+      "enabled": true,
+      "eyebrow": "Sık Sorulanlar",
+      "title": "Gelmeden önce",
+      "items": [
+        {
+          "question": "Randevusuz gelebilir miyim?",
+          "answer": "Müsaitlik varsa yardımcı oluruz, ancak beklememek için WhatsApp'tan randevu öneriyoruz."
+        },
+        {
+          "question": "Çocuk saç kesimi yapıyor musunuz?",
+          "answer": "Evet. Çocuklar için daha sakin ve kısa süren bir kesim akışı uyguluyoruz."
+        }
+      ]
+    },
+    "contact": {
+      "enabled": true,
+      "eyebrow": "İletişim",
+      "title": "Ulaşım ve randevu",
+      "note": "Aynı gün randevu için WhatsApp en hızlı yoldur."
+    }
+  }
+}

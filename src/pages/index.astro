@@ -1,0 +1,33 @@
+---
+import siteData from "../data/site.json";
+import type { SiteConfig } from "../types/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import TrustStrip from "../components/TrustStrip.astro";
+import About from "../components/About.astro";
+import Services from "../components/Services.astro";
+import Gallery from "../components/Gallery.astro";
+import Testimonials from "../components/Testimonials.astro";
+import Faq from "../components/Faq.astro";
+import Contact from "../components/Contact.astro";
+
+const site = siteData as SiteConfig;
+---
+
+<BaseLayout site={site}>
+  <Header site={site} />
+  <main>
+    {site.sections.hero.enabled && <Hero site={site} />}
+    {site.sections.trust.enabled && <TrustStrip site={site} />}
+    {site.sections.about.enabled && <About site={site} />}
+    {site.sections.services.enabled && <Services site={site} />}
+    {site.sections.gallery.enabled && <Gallery site={site} />}
+    {site.sections.testimonials.enabled && <Testimonials site={site} />}
+    {site.sections.faq.enabled && <Faq site={site} />}
+    {site.sections.contact.enabled && <Contact site={site} />}
+  </main>
+  <footer class="site-footer">
+    <p>{site.business.name} © {new Date().getFullYear()}</p>
+  </footer>
+</BaseLayout>

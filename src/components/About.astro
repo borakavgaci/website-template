@@ -1,0 +1,24 @@
+---
+import type { SiteConfig } from "../types/site";
+
+interface Props {
+  site: SiteConfig;
+}
+
+const { site } = Astro.props;
+const about = site.sections.about;
+---
+
+<section class="section split" id="hakkimizda">
+  <div class="section-copy">
+    <p class="eyebrow">{about.eyebrow}</p>
+    <h2>{about.title}</h2>
+    <p>{about.body}</p>
+    <ul class="check-list">
+      {about.highlights.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+  <figure class="media-frame">
+    <img src={about.image} alt={`${site.business.name} hakkında görsel`} loading="lazy" />
+  </figure>
+</section>

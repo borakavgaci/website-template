@@ -1,0 +1,18 @@
+---
+import type { SiteConfig } from "../types/site";
+
+interface Props {
+  site: SiteConfig;
+}
+
+const { site } = Astro.props;
+---
+
+<section class="trust-strip" aria-label="Öne çıkan bilgiler">
+  {site.sections.trust.items.map((item) => (
+    <div>
+      <strong>{item.value}</strong>
+      <span>{item.label}</span>
+    </div>
+  ))}
+</section>

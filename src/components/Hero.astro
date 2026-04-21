@@ -1,0 +1,27 @@
+---
+import type { SiteConfig } from "../types/site";
+
+interface Props {
+  site: SiteConfig;
+}
+
+const { site } = Astro.props;
+const hero = site.sections.hero;
+---
+
+<section
+  class="hero"
+  id="anasayfa"
+  style={`background-image: linear-gradient(90deg, rgba(14, 20, 24, 0.82), rgba(14, 20, 24, 0.32)), url('${hero.image}');`}
+>
+  <div class="hero-inner">
+    <p class="eyebrow light">{hero.eyebrow}</p>
+    <h1>{site.business.name}</h1>
+    <p class="hero-copy">{site.business.tagline}</p>
+    <p class="hero-description">{site.business.description}</p>
+    <div class="hero-actions">
+      <a class="button primary" href={`https://wa.me/${site.business.whatsapp}`}>{hero.primaryCta}</a>
+      <a class="button ghost" href={site.business.mapsUrl}>{hero.secondaryCta}</a>
+    </div>
+  </div>
+</section>

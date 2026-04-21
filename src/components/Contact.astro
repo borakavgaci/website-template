@@ -1,0 +1,40 @@
+---
+import type { SiteConfig } from "../types/site";
+
+interface Props {
+  site: SiteConfig;
+}
+
+const { site } = Astro.props;
+const contact = site.sections.contact;
+const mapEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(site.business.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+---
+
+<section class="section contact-section" id="iletisim">
+  <div class="contact-panel">
+    <p class="eyebrow">{contact.eyebrow}</p>
+    <h2>{contact.title}</h2>
+    <p>{contact.note}</p>
+    <dl class="contact-list">
+      <div>
+        <dt>Telefon</dt>
+        <dd><a href={`tel:${site.business.phone}`}>{site.business.phone}</a></dd>
+      </div>
+      <div>
+        <dt>Çalışma saatleri</dt>
+        <dd>{site.business.hours}</dd>
+      </div>
+      <div>
+        <dt>Adres</dt>
+        <dd>{site.business.address}</dd>
+      </div>
+    </dl>
+    <div class="contact-actions">
+      <a class="button primary" href={`https://wa.me/${site.business.whatsapp}`}>WhatsApp</a>
+      <a class="button outline" href={site.business.mapsUrl}>Haritada aç</a>
+    </div>
+  </div>
+  <div class="map-panel">
+    <iframe title={`${site.business.name} harita konumu`} src={mapEmbed} loading="lazy"></iframe>
+  </div>
+</section>

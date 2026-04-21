@@ -1,0 +1,24 @@
+---
+import type { SiteConfig } from "../types/site";
+
+interface Props {
+  site: SiteConfig;
+}
+
+const { site } = Astro.props;
+const gallery = site.sections.gallery;
+---
+
+<section class="section gallery-section" id="galeri">
+  <div class="section-heading">
+    <p class="eyebrow">{gallery.eyebrow}</p>
+    <h2>{gallery.title}</h2>
+  </div>
+  <div class="gallery-grid">
+    {gallery.images.map((image) => (
+      <figure>
+        <img src={image.src} alt={image.alt} loading="lazy" />
+      </figure>
+    ))}
+  </div>
+</section>
