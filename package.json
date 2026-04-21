@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
+    "deploy": "wrangler deploy",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -14,7 +15,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.0",
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "wrangler": "^4.42.0"
   },
   "overrides": {
     "yaml": "^2.8.3"

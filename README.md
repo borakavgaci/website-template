@@ -24,12 +24,22 @@ Bu proje bakım maliyetini düşük tutmak için tamamen statik çalışır. Can
 
 ## Cloudflare Pages
 
-Cloudflare Pages'ta yeni proje oluştururken:
+En sorunsuz statik yayın yolu Cloudflare Pages'tır. Cloudflare Pages'ta yeni proje oluştururken:
 
 - Framework preset: `Astro`
 - Build command: `npm run build`
 - Build output directory: `dist`
 - Node version: `20` veya daha yeni
+
+Deploy command alanı görünüyorsa boş bırak. Pages için `npx wrangler deploy` gerekmez.
+
+## Cloudflare Workers Static Assets
+
+Cloudflare yeni projelerde `npx wrangler deploy` ile Workers Static Assets akışını önerebilir. Bu repo `wrangler.jsonc` ile bu akışa da hazırdır:
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Root directory: `/`
 
 Repository bağlandıktan sonra her push otomatik yeni yayın üretir. Tek seferlik teslimlerde müşteriye Cloudflare hesabı veya GitHub repo erişimi verilebilir.
 
