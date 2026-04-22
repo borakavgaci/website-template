@@ -34,9 +34,50 @@ const navItems = site.navigation.filter((item) => item.enabled);
 </header>
 
 <script>
-  document.querySelectorAll(".mobile-menu nav a").forEach((link) => {
-    link.addEventListener("click", () => {
-      link.closest("details")?.removeAttribute("open");
+  const header = document.querySelector(".site-header");
+
+  function getHashTarget(hash: string) {
+    if (!hash.startsWith("#")) {
+      return null;
+    }
+
+    return document.getElementById(decodeURIComponent(hash.slice(1)));
+  }
+
+  function scrollToHash(hash: string, behavior: ScrollBehavior = "smooth") {
+    const target = getHashTarget(hash);
+
+    if (!target) {
+      return;
+    }
+
+    const headerHeight = header?.getBoundingClientRect().height ?? 0;
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+    window.scrollTo({
+      top: Math.max(targetTop, 0),
+      behavior
     });
+  }
+
+  document.querySelectorAll(".site-header a[href^='#']").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+
+      if (!href || !getHashTarget(href)) {
+        return;
+      }
+
+      event.preventDefault();
+      link.closest("details")?.removeAttribute("open");
+      history.pushState(null, "", href);
+      scrollToHash(href);
+    });
+  });
+
+  window.addEventListener("load", () => {
+    if (window.location.hash) {
+      window.setTimeout(() => scrollToHash(window.location.hash, "auto"), 0);
+    }
   });
 </script>
