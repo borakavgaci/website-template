@@ -18,10 +18,10 @@
     "description": "Randevunu hızlıca al, saç ve sakal bakımını beklemeden tamamla. Klasik berber rahatlığını modern bir dokunuşla sunuyoruz."
   },
   "theme": {
-    "primary": "#243b53",
-    "secondary": "#c9a227",
-    "accent": "#7f1d1d",
-    "background": "#95af46",
+    "primary": "#116466",
+    "secondary": "#d9b44a",
+    "accent": "#c44536",
+    "background": "#f6f7f3",
     "surface": "#ffffff",
     "text": "#1f2a2e",
     "muted": "#667277"
