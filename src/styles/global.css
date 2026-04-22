@@ -1,5 +1,8 @@
 :root {
+  --header-height: 73px;
+  --screen-section-height: calc(100svh - var(--header-height));
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
   color-scheme: light;
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -185,7 +188,7 @@ textarea {
 
 .hero {
   display: grid;
-  min-height: min(74svh, 760px);
+  min-height: var(--screen-section-height);
   align-items: center;
   background-position: center;
   background-size: cover;
@@ -194,7 +197,7 @@ textarea {
 .hero-inner {
   width: min(1080px, calc(100% - 36px));
   margin: 0 auto;
-  padding: 72px 0 82px;
+  padding: clamp(42px, 7vh, 76px) 0;
   color: #fff;
 }
 
@@ -305,9 +308,10 @@ h1 {
 }
 
 .section {
+  min-height: var(--screen-section-height);
   width: min(1120px, calc(100% - 36px));
   margin: 0 auto;
-  padding: clamp(70px, 9vw, 112px) 0;
+  padding: clamp(34px, 6vh, 68px) 0;
 }
 
 .split {
@@ -358,14 +362,14 @@ h1 {
 
 .media-frame img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: clamp(320px, 58svh, 560px);
   border-radius: 8px;
   object-fit: cover;
 }
 
 .section-heading {
   max-width: 760px;
-  margin-bottom: 34px;
+  margin-bottom: clamp(18px, 3vh, 34px);
 }
 
 .service-grid {
@@ -375,10 +379,10 @@ h1 {
 }
 
 .service-card {
-  min-height: 260px;
+  min-height: 220px;
   border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
   border-radius: 8px;
-  padding: 24px;
+  padding: 22px;
   background: var(--surface);
 }
 
@@ -417,6 +421,7 @@ h1 {
 .gallery-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  grid-auto-rows: clamp(160px, 24svh, 260px);
   gap: 14px;
 }
 
@@ -427,7 +432,7 @@ h1 {
 .gallery-grid img {
   width: 100%;
   height: 100%;
-  min-height: 320px;
+  min-height: 0;
   border-radius: 8px;
   object-fit: cover;
 }
@@ -452,7 +457,7 @@ h1 {
 blockquote {
   margin: 0;
   border-radius: 8px;
-  padding: 28px;
+  padding: clamp(18px, 3vh, 28px);
   background: var(--surface);
 }
 
@@ -540,13 +545,13 @@ details p {
 
 .map-panel {
   overflow: hidden;
-  min-height: 430px;
+  min-height: clamp(300px, 50svh, 430px);
 }
 
 .map-panel iframe {
   width: 100%;
   height: 100%;
-  min-height: 430px;
+  min-height: clamp(300px, 50svh, 430px);
   border: 0;
 }
 
@@ -590,8 +595,48 @@ details p {
   }
 
   .hero {
-    min-height: 68svh;
+    min-height: var(--screen-section-height);
   }
+
+  .section {
+    padding: clamp(24px, 4vh, 42px) 0;
+  }
+
+  .media-frame img {
+    height: clamp(190px, 28svh, 260px);
+  }
+
+  .service-grid,
+  .testimonial-grid,
+  .faq-list {
+    gap: 10px;
+  }
+
+  .service-card {
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .service-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .service-card h3 {
+    margin: 12px 0 8px;
+    font-size: 1.12rem;
+  }
+
+  .service-card p {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.5;
+  }
+
+  .service-card span {
+    margin-top: 10px;
+  }
+
   .trust-strip,
   .service-grid,
   .testimonial-grid,
@@ -615,7 +660,9 @@ details p {
   }
 
   .gallery-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    gap: 8px;
   }
 
   .gallery-grid figure:first-child {
@@ -623,7 +670,44 @@ details p {
   }
 
   .gallery-grid img {
-    min-height: 260px;
+    aspect-ratio: 1;
+    min-height: 0;
+  }
+
+  blockquote p {
+    margin-bottom: 10px;
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+
+  .faq-section {
+    gap: 18px;
+  }
+
+  details {
+    padding: 13px 15px;
+  }
+
+  .contact-section {
+    gap: 14px;
+  }
+
+  .contact-panel {
+    padding: 18px;
+  }
+
+  .contact-list {
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .contact-actions {
+    margin-top: 18px;
+  }
+
+  .map-panel,
+  .map-panel iframe {
+    min-height: clamp(160px, 24svh, 220px);
   }
 }
 
@@ -653,7 +737,7 @@ details p {
 
   .hero-inner {
     width: min(100% - 28px, 1080px);
-    padding: 54px 0 64px;
+    padding: 36px 0;
   }
 
   h1 {
@@ -666,5 +750,9 @@ details p {
 
   .section {
     width: min(100% - 28px, 1120px);
+  }
+
+  .section h2 {
+    font-size: clamp(1.65rem, 8vw, 2.5rem);
   }
 }

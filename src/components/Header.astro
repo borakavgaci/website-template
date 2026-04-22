@@ -36,6 +36,11 @@ const navItems = site.navigation.filter((item) => item.enabled);
 <script>
   const header = document.querySelector(".site-header");
 
+  function updateHeaderHeight() {
+    const headerHeight = header?.getBoundingClientRect().height ?? 0;
+    document.documentElement.style.setProperty("--header-height", `${Math.ceil(headerHeight)}px`);
+  }
+
   function getHashTarget(hash: string) {
     if (!hash.startsWith("#")) {
       return null;
@@ -60,7 +65,15 @@ const navItems = site.navigation.filter((item) => item.enabled);
     });
   }
 
-  document.querySelectorAll(".site-header a[href^='#']").forEach((link) => {
+  updateHeaderHeight();
+
+  if (header) {
+    new ResizeObserver(updateHeaderHeight).observe(header);
+  }
+
+  window.addEventListener("resize", updateHeaderHeight);
+
+  document.querySelectorAll<HTMLAnchorElement>(".site-header a[href^='#']").forEach((link) => {
     link.addEventListener("click", (event) => {
       const href = link.getAttribute("href");
 
@@ -76,6 +89,8 @@ const navItems = site.navigation.filter((item) => item.enabled);
   });
 
   window.addEventListener("load", () => {
+    updateHeaderHeight();
+
     if (window.location.hash) {
       window.setTimeout(() => scrollToHash(window.location.hash, "auto"), 0);
     }
