@@ -20,5 +20,23 @@ const navItems = site.navigation.filter((item) => item.enabled);
   <nav class="site-nav" aria-label="Ana menü">
     {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
+  <details class="mobile-menu">
+    <summary aria-label="Menüyü aç">
+      <span></span>
+      <span></span>
+      <span></span>
+    </summary>
+    <nav aria-label="Mobil menü">
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+  </details>
   <a class="header-action" href={`https://wa.me/${site.business.whatsapp}`}>Randevu</a>
 </header>
+
+<script>
+  document.querySelectorAll(".mobile-menu nav a").forEach((link) => {
+    link.addEventListener("click", () => {
+      link.closest("details")?.removeAttribute("open");
+    });
+  });
+</script>

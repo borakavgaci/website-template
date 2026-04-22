@@ -1,5 +1,6 @@
 :root {
   scroll-behavior: smooth;
+  scroll-padding-top: 92px;
   color-scheme: light;
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -104,6 +105,66 @@ textarea {
 
 .site-nav a:hover {
   color: var(--primary);
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu summary {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+  border-radius: 8px;
+  background: var(--surface);
+  cursor: pointer;
+  list-style: none;
+}
+
+.mobile-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-menu summary span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--text);
+}
+
+.mobile-menu nav {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: clamp(14px, 4vw, 24px);
+  display: grid;
+  min-width: min(260px, calc(100vw - 28px));
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 18px 42px rgba(29, 42, 45, 0.16);
+}
+
+.mobile-menu nav a {
+  padding: 15px 18px;
+  color: var(--text);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.mobile-menu nav a + a {
+  border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.mobile-menu nav a:hover {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, var(--surface));
 }
 
 .header-action,
@@ -245,6 +306,7 @@ h1 {
 }
 
 .section {
+  scroll-margin-top: 92px;
   width: min(1120px, calc(100% - 36px));
   margin: 0 auto;
   padding: clamp(70px, 9vw, 112px) 0;
@@ -511,17 +573,34 @@ details p {
 }
 
 @media (max-width: 920px) {
+  :root {
+    scroll-padding-top: 84px;
+  }
+
   .site-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
+    gap: 12px;
   }
 
   .site-nav {
-    grid-column: 1 / -1;
-    justify-content: flex-start;
-    padding-bottom: 2px;
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+    order: 2;
+  }
+
+  .header-action {
+    order: 3;
+  }
+
+  .section {
+    scroll-margin-top: 84px;
   }
 
   .hero {
+    scroll-margin-top: 84px;
     min-height: 68svh;
   }
 
@@ -563,14 +642,25 @@ details p {
 @media (max-width: 620px) {
   .site-header {
     gap: 12px;
+    padding: 10px 14px;
   }
 
   .brand strong {
-    max-width: 168px;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .header-action {
-    padding: 10px 12px;
+    min-height: 40px;
+    padding: 9px 11px;
+  }
+
+  .brand-mark,
+  .mobile-menu summary {
+    width: 40px;
+    height: 40px;
   }
 
   .hero-inner {
